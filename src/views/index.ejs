@@ -11,7 +11,7 @@
      <!-- better looking pokemon sprite if needed
      <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/<%= pokemon.id %>.png" alt="<%= pokemon.name %>" style="height: 100px;">
      -->
-     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/<%= pokemon.id %>.png" alt="<%= pokemon.name %>" style="height: 100px;">
+     <img src='<%= pokemon.official_image_url %>' alt="<%= pokemon.name %> image" style="height: 100px;">
      <li><%= pokemon.id %> => <%= pokemon.name %>, <%= pokemon.types %></li>
      <% }) %>
   </ul>
