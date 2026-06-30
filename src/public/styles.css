@@ -25,3 +25,7 @@
 .type.dark { background: #705848; color: white; }
 .type.steel { background: #B8B8D0; color: white; }
 .type.flying { background: #A890F0; color: white; }
+
+.pokeimg {
+   height: 100px;
+}

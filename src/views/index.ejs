@@ -7,21 +7,11 @@
 </head>
 <body>
   <h1>Pokémon stats</h1>
-  <ul>
-     <% pokemons.forEach(pokemon => { %>
-     <!-- gameboy sprite 
-     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/<%= pokemon.id %>.png" alt="<%= pokemon.name %>" style="height: 100px;">
-     -->
-     <img src='<%= pokemon.official_image_url %>' alt="<%= pokemon.name %> image" style="height: 100px;">
-     <li><%= pokemon.id %> => <%= pokemon.name %>, 
-        <div class="type <%= pokemon.types[0] %>">
-           <%= pokemon.types[0] %>
-         </div>
-        <div class="type <%= pokemon.types[1] %>">
-           <%= pokemon.types[1] %>
-         </div>
-      </li>
-     <% }) %>
-  </ul>
+  <input type="text" id="search" placeholder="Search Pokémon...">
+  <div id="results">
+
+  </div>
+
+  <script src="/js/search.js"></script>
 </body>
 </html>
