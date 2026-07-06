@@ -12,7 +12,7 @@ router.get('/search', async(req, res) => {
 
    if (query) {
       const fuse = new Fuse(pokemons, {
-         keys: ['name'],
+         keys: ['name', 'types'], //search by name or types
          threshold: 0.3, // fuzzy matching
       });
       const results = fuse.search(query).map(r => r.item);
