@@ -14,16 +14,17 @@ searchInput.addEventListener('input', async () => {
 
 function renderPokemons(pokemons) {
   resultsDiv.innerHTML = `
-    <ul>
+    <ul class="pokemon-list">
       ${pokemons.map(p => `
-        <li>
+        <li class="pokemon-list-types">
+          <img src="${p.official_image_url}" alt="${p.name}" class="pokeimg">
           <span>${p.pokedex_id} - ${p.name}</span>
           <div class="type ${p.types[0]}">${p.types[0]}</div>
 
           <!-- if it has more than 1 type, display it -->
           ${p.types[1] ? `<div class="type ${p.types[1]}">${p.types[1]}</div>` : ''}
         </li>
-          <img src="${p.official_image_url}" alt="${p.name}" class="pokeimg">
+
       `).join('')}
     </ul>
   `;
