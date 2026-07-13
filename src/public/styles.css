@@ -8,12 +8,13 @@
 
 body {
    display: flex;
+   margin: 0;
    justify-content: center;
    align-items:center;
    background-color: var(--classic-gray);
 }
 
-.main-content {
+.full-content {
    display: flex;
    background-color: var(--classic-white);
    flex-direction: column;
@@ -29,6 +30,30 @@ body {
   border-radius: 12px;
   font-size: 12px;
   font-weight: bold;
+}
+
+#main-content {
+   display: flex;
+}
+
+#team {
+   width: 350px;
+   background-color: gray;
+   border-radius: 32px;
+   border: none;
+   height: 400px;
+}
+
+#search-and-results {
+   display: flex;
+   margin: 6px;
+   flex-direction: column;
+}
+
+/* pokemon list styling */
+.pokemon-list {
+   max-height: 720px;
+   overflow: auto;
 }
 
 .pokemon-list-types {
@@ -62,4 +87,20 @@ body {
 
 .pokeimg {
    height: 50px;
+}
+
+/* team styling */
+#my-team {
+   min-height: 600px;
+}
+
+.pokemon-team {
+   list-style-type: none;
+   text-decoration: none;
+}
+
+@media (max-width: 820px) {
+   .full-content {
+      width: 100%;
+   }
 }
