@@ -36,12 +36,16 @@ body {
    display: flex;
 }
 
-#team {
+#selected-pokemon {
    width: 350px;
    background-color: gray;
    border-radius: 32px;
    border: none;
    height: 400px;
+}
+
+.large-img {
+   height: 250px;
 }
 
 #search-and-results {
@@ -52,7 +56,8 @@ body {
 
 /* pokemon list styling */
 .pokemon-list {
-   max-height: 720px;
+   width: 320px;
+   height: 480px;
    overflow: auto;
 }
 

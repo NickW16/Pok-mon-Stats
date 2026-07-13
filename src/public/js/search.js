@@ -1,4 +1,5 @@
 let allPokemons = []; //global storage
+let currentPokemon = null;
 
 fetch('/search?q=')
    .then(res => res.json())
@@ -21,39 +22,79 @@ searchInput.addEventListener('input', async () => {
 
 // add pokemons to team
 resultsDiv.addEventListener('click', (e) => {
-  if (e.target.classList.contains('add-to-team')) {
-    const li = e.target.closest('li');
-    const index = li.dataset.index;
-    const pokemon = allPokemons[index];
+  const li = e.target.closest('.pokemon-list-types');
+  if (!li) return;
 
-     // check if pokemons is already in team or team full
-    if (team.some(p => p.pokedex_id === pokemon.pokedex_id)) {  
-       alert(`${pokemon.name} is already in your team!`);
-    } else if (team.length <  6) {
-       team.push(pokemon);
-    } else {
-       alert('team is full! cannot add.');
-    }
-      renderTeam(team);
-    }
+  const index = li.dataset.index;
+  const pokemon = allPokemons[index];
+
+  // Otherwise, show large view
+  renderSelectedPokemon(pokemon);
 });
-
 function renderPokemons(pokemons) {
   resultsDiv.innerHTML = `
     <ul class="pokemon-list">
       ${pokemons.map((p, index) => `
         <li class="pokemon-list-types" data-index="${index}">
-          <img src="${p.official_image_url}" alt="${p.name}" class="pokeimg">
-          <span>${p.pokedex_id} - ${p.name}</span>
-          <div class="type ${p.types[0]}">${p.types[0]}</div>
-
-          <!-- if it has more than 1 type, display it -->
-          ${p.types[1] ? `<div class="type ${p.types[1]}">${p.types[1]}</div>` : ''}
-          <button class="add-to-team">+</button>
+          <div class="pokemon-card-clickable">
+            <img src="${p.official_image_url}" alt="${p.name}" class="pokeimg">
+            <span>${p.pokedex_id} - ${p.name}</span>
+            <div class="type ${p.types[0]}">${p.types[0]}</div>
+            ${p.types[1] ? `<div class="type ${p.types[1]}">${p.types[1]}</div>` : ''}
+          </div>
         </li>
-
       `).join('')}
     </ul>
+  `;
+}
+
+const displayLargePokemon = document.querySelector('.large-pokemon');
+const selectedPokemon = document.querySelector('#selected-pokemon');
+
+// close button
+selectedPokemon.addEventListener('click', (e) => {
+   //just in case i want delete function from display
+  if (e.target.classList.contains('close-pokemon')) {
+    selectedPokemon.innerHTML = '';
+    currentPokemon = null;
+    return;
+  }
+   // get pokemon from display
+  const displayDiv = document.querySelector('#large-pokemon-display');
+  if (!displayDiv) return;
+
+   // store current pokemon globally 
+  if (!currentPokemon) return;
+
+   // if clicked + button, add to team
+  if (e.target.classList.contains('add-to-team')) {
+    if (team.some(p => p.pokedex_id === currentPokemon.pokedex_id)) {
+      alert(`${currentPokemon.name} is already in your team!`);
+    } else if (team.length < 6) {
+      team.push(currentPokemon);
+      renderTeam(team);
+    } else {
+      alert('Team is full!');
+    }
+    return;
+  }
+
+});
+
+function renderSelectedPokemon(pokemon) {
+  if (!pokemon) return;
+
+  currentPokemon = pokemon; // store globally
+
+  selectedPokemon.innerHTML = `
+    <div id="large-pokemon-display">
+      <img src="${pokemon.official_image_url}" alt="${pokemon.name}" class="large-img">
+      <h2>${pokemon.name}</h2>
+      <p>#${pokemon.pokedex_id}</p>
+      <div class="type ${pokemon.types[0]}">${pokemon.types[0]}</div>
+      ${pokemon.types[1] ? `<div class="type ${pokemon.types[1]}">${pokemon.types[1]}</div>` : ''}
+      <button class="add-to-team">Add to team</button>
+    </div>
   `;
 }
 
