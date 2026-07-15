@@ -4,6 +4,15 @@
    --classic-yellow: #FFCB05;
    --classic-white: #FFFFFF;
    --classic-gray: #2D2D2D;
+   --modern-navy: #1A2A3A;
+   --modern-red: #FF3B30;
+   --modern-yellow: #FFD60A;
+   --modern-blue: #007AFF;
+   --modern-green: #34C759;
+   --modern-background-gray: #F2F2F7;
+   --modern-mid-gray: #8E8E93;
+   --modern-dark-gray: #2C2C2E;
+   --modern-near-black: #1C1C1E;
 }
 
 body {
@@ -36,14 +45,6 @@ body {
    display: flex;
 }
 
-#selected-pokemon {
-   width: 350px;
-   background-color: gray;
-   border-radius: 32px;
-   border: none;
-   height: 400px;
-}
-
 .large-img {
    height: 250px;
 }
@@ -70,6 +71,20 @@ body {
    text-decoration: none;
 }
 
+.pokemon-card-clickable {
+   display: flex;
+   align-items: center;
+   gap: 5px;
+   border-radius: 20px;
+   width: 300px;
+   background-color: var(--modern-background-gray);
+}
+
+.pokemon-card-clickable:active {
+   color: var(--classic-white);
+   background-color: var(--modern-blue);
+}
+
 /* type colors */
 .type.grass { background: #78C850; color: white; }
 .type.fire { background: #F08030; color: white; }
@@ -89,6 +104,50 @@ body {
 .type.dark { background: #705848; color: white; }
 .type.steel { background: #B8B8D0; color: white; }
 .type.flying { background: #A890F0; color: white; }
+
+/* selected pokemon info */
+#selected-pokemon {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   width: 350px;
+   background-color: var(--modern-background-gray);
+   border-radius: 32px;
+   border: none;
+   height: 400px;
+}
+
+#large-pokemon-display {
+   display: flex;
+   padding: 20px;
+   flex-direction: column;
+   align-items: center;
+}
+
+.selected-pokemon-text {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   gap: 5px;
+}
+
+.select-buttons {
+   display: flex;
+   gap: 5px;
+}
+
+.select-buttons button {
+   background-color: var(--modern-dark-gray);
+   color: white;
+   border-radius: 30px;
+   width: 140px;
+   border: none;
+   transition: ease 0.2s;
+}
+
+.select-buttons button:hover {
+   transform: translateY(-10%);
+}
 
 .pokeimg {
    height: 50px;

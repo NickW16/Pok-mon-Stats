@@ -39,7 +39,10 @@ async function seedDatabase() {
             VALUES ($1, $2, $3, $4, $5)
             ON CONFLICT (pokedex_id) DO NOTHING`,
             [
-               d.name,
+               d.name
+               .split(" ")
+               .map(n => n.charAt(0).toUpperCase() + n.slice(1))
+               .join(" "),
                d.id,
                d.types.map(t => t.type.name), // convert to array
                `/images/pokemon-images/official-${d.id}.png`,

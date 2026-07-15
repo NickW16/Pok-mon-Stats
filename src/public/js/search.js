@@ -16,7 +16,7 @@ searchInput.addEventListener('input', async () => {
   const query = searchInput.value;
   const response = await fetch(`/search?q=${query}`);
   const pokemons = await response.json();
-  allPokemons = pokemons; // ✅ Update global
+  allPokemons = pokemons; // update global
   renderPokemons(pokemons);
 });
 
@@ -37,7 +37,7 @@ function renderPokemons(pokemons) {
       ${pokemons.map((p, index) => `
         <li class="pokemon-list-types" data-index="${index}">
           <div class="pokemon-card-clickable">
-            <img src="${p.official_image_url}" alt="${p.name}" class="pokeimg">
+            <img src="${p.gameboy_image_url}" alt="${p.name}" class="pokeimg">
             <span>${p.pokedex_id} - ${p.name}</span>
             <div class="type ${p.types[0]}">${p.types[0]}</div>
             ${p.types[1] ? `<div class="type ${p.types[1]}">${p.types[1]}</div>` : ''}
@@ -89,13 +89,31 @@ function renderSelectedPokemon(pokemon) {
   selectedPokemon.innerHTML = `
     <div id="large-pokemon-display">
       <img src="${pokemon.official_image_url}" alt="${pokemon.name}" class="large-img">
-      <h2>${pokemon.name}</h2>
-      <p>#${pokemon.pokedex_id}</p>
-      <div class="type ${pokemon.types[0]}">${pokemon.types[0]}</div>
-      ${pokemon.types[1] ? `<div class="type ${pokemon.types[1]}">${pokemon.types[1]}</div>` : ''}
-      <button class="add-to-team">Add to team</button>
+      <div class="selected-pokemon-text">
+         <p>#${pokemon.pokedex_id}</p>
+         <h2>${pokemon.name}</h2>
+         <div class="type ${pokemon.types[0]}">${pokemon.types[0]}</div>
+         ${pokemon.types[1] ? `<div class="type ${pokemon.types[1]}">${pokemon.types[1]}</div>` : ''}
+      </div>
+      <div class="select-buttons">
+         <button class="switch-image">Switch to classic</button>
+         <button class="add-to-team">Add to team</button>
+      </div>
     </div>
   `;
+
+   const switchBtn = document.querySelector('.switch-image');
+   const pokemonImage = document.querySelector('.large-img');
+
+   switchBtn.addEventListener('click', () => {
+      if (pokemonImage.src.includes('official')) {
+         switchBtn.textContent = 'Switch to modern'
+         pokemonImage.src = pokemon.gameboy_image_url;
+      } else {
+         switchBtn.textContent = 'Switch to classic'
+         pokemonImage.src = pokemon.official_image_url;
+      }
+   });
 }
 
 // render team
