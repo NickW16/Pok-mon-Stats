@@ -4,7 +4,15 @@ const router = express.Router();
 const Fuse = require('fuse.js');
 const userController = require('../controllers/userController');
 
+// search homepage
+
 router.get('/', userController.getHomePage);
+
+// team
+router.get('/team', (req, res) => {
+   res.render('team');   
+});
+
 router.get('/search', async(req, res) => {
    const query = req.query.q;
    const result = await pool.query('SELECT * FROM pokemon ORDER BY pokedex_id');

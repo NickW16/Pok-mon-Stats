@@ -127,7 +127,7 @@ function renderTeam(team) {
       <ul class="team-list">
          ${team.map(p => `
          <li class="pokemon-team">
-            <img src="${p.official_image_url}" alt="${p.name}" class="pokeimg">
+            <img src="${p.gameboy_image_url}" alt="${p.name}" class="pokeimg">
             <span>${p.name}</span>
             <div class="type ${p.types[0]}">${p.types[0]}</div>
 
