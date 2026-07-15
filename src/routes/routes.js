@@ -9,8 +9,41 @@ const userController = require('../controllers/userController');
 router.get('/', userController.getHomePage);
 
 // team
+ 
 router.get('/team', (req, res) => {
    res.render('team');   
+});
+
+// post team
+router.post('/api/teams', async (req, res) => {
+   const { team } = req.body;
+   const pokemonIds = team.map(p => p.pokedex_id);
+
+   const result = await pool.query(
+      'INSERT INTO teams (pokemon_ids, created_at) VALUES ($1, NOW()) RETURNING id',
+      [pokemonIds]
+   );
+
+   res.json({ success: true, teamId: result.rows[0].id });
+});
+
+// fetch team from DB
+router.get('/api/teams/latest', async (req, res) => {
+   const result = await pool.query(
+      'SELECT * FROM teams ORDER BY created_at DESC LIMIT 1'
+   );
+
+   if (result.rows.length === 0) {
+      return res.json({ team: [] });
+   }
+
+   const ids = result.rows[0].pokemon_ids;
+   const pokemonResult = await pool.query(
+      'SELECT * FROM pokemon WHERE pokedex_id = ANY($1) ORDER BY pokedex_id',
+      [ids]
+   );
+
+   res.json({ team: pokemonResult.rows }); 
 });
 
 router.get('/search', async(req, res) => {
