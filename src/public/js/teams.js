@@ -63,7 +63,7 @@ function renderTeam(team) {
     teamDiv.innerHTML = `
       <div class="empty-team">
         <p>Your team is empty.</p>
-        <a href="/">Browse Pokémon</a>
+        <a href="/">Build my Team</a>
       </div>
     `;
     return;
@@ -75,10 +75,12 @@ function renderTeam(team) {
       <ul class="team-list">
         ${team.map(p => `
           <li class="pokemon-team">
-            <img src="${p.gameboy_image_url}" alt="${p.name}" class="pokeimg">
-            <span>${p.name}</span>
-            <div class="type ${p.types[0]}">${p.types[0]}</div>
-            ${p.types[1] ? `<div class="type ${p.types[1]}">${p.types[1]}</div>` : ''}
+            <div class="team-wrapper">
+               <img src="${p.gameboy_image_url}" alt="${p.name}" class="pokeimg">
+               <span>${p.name}</span>
+               <div class="type ${p.types[0]}">${p.types[0]}</div>
+               ${p.types[1] ? `<div class="type ${p.types[1]}">${p.types[1]}</div>` : ''}
+            </div>
             <button class="delete-from-team" data-id="${p.pokedex_id}">x</button>
           </li>
         `).join('')}

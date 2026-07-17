@@ -15,6 +15,11 @@
    --modern-near-black: #1C1C1E;
 }
 
+h1, h2, h3, h4 {
+   margin: 0;
+   padding: 0;
+}
+
 body {
    display: flex;
    margin: 0;
@@ -71,7 +76,7 @@ body {
    text-decoration: none;
 }
 
-.pokemon-card-clickable {
+.pokemon-card-clickable, .pokemon-team {
    display: flex;
    align-items: center;
    gap: 5px;
@@ -80,7 +85,7 @@ body {
    background-color: var(--modern-background-gray);
 }
 
-.pokemon-card-clickable:active {
+.pokemon-card-clickable:active, .pokemon-team:active {
    color: var(--classic-white);
    background-color: var(--modern-blue);
 }
@@ -155,12 +160,47 @@ body {
 
 /* team styling */
 #my-team {
-   min-height: 600px;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   min-height: 500px;
+}
+
+.team-list {
+   display: flex;
+   flex-direction: column;
+   gap: 5px;
+}
+
+.team-wrapper {
+   display: flex;
+   justify-content: start;
+   gap: 5px;
+   align-items: center;
 }
 
 .pokemon-team {
+   display: flex;
+   justify-content: space-between;
+   flex-grow: 1;
+   padding: 5px;
    list-style-type: none;
    text-decoration: none;
+}
+
+.delete-from-team {
+   border: none;
+   border-radius: 30px;
+   padding: 2px 5px 2px 5px;
+   background-color: var(--modern-navy);
+   color: var(--classic-white);
+   transition: 0.2s ease;
+}
+
+.delete-from-team:hover {
+   background-color: var(--modern-red);
+   color: var(--classic-white);
 }
 
 @media (max-width: 820px) {
