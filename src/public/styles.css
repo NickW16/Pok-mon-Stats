@@ -32,6 +32,7 @@ body {
    display: flex;
    background-color: var(--classic-white);
    flex-direction: column;
+   padding: 20px;
    width: 80%;
    align-items: center;
    border-radius: 32px;
@@ -178,6 +179,13 @@ body {
    justify-content: start;
    gap: 5px;
    align-items: center;
+}
+
+#team-and-select {
+   display: flex;
+   align-items: center;
+   gap: 20px;
+   justify-content: center;
 }
 
 .pokemon-team {

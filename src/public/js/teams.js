@@ -1,3 +1,5 @@
+let currentTeam = [];
+
 // load and display team
 async function loadTeam() {
   try {
@@ -74,7 +76,7 @@ function renderTeam(team) {
       <h2>My Team (${team.length}/6)</h2>
       <ul class="team-list">
         ${team.map(p => `
-          <li class="pokemon-team">
+          <li class="pokemon-team" data-pokedex-id="${p.pokedex_id}">
             <div class="team-wrapper">
                <img src="${p.gameboy_image_url}" alt="${p.name}" class="pokeimg">
                <span>${p.name}</span>
@@ -89,10 +91,61 @@ function renderTeam(team) {
     </div>
   `;
 
+   currentTeam = team;
+
+   // allow for pokemon viewing on team page
+   const teamListItems = document.querySelectorAll('.pokemon-team');
+   teamListItems.forEach((li) => {
+     li.addEventListener('click', (e) => {
+       if (e.target.classList.contains('delete-from-team')) return;
+       const pokedexId = parseInt(li.dataset.pokedexId);
+       const pokemon = currentTeam.find(p => p.pokedex_id === pokedexId);
+       if (pokemon) showTeamPokemon(pokemon);
+     });
+   });
+
   const deleteBtn = document.getElementById('delete-team');
   if (deleteBtn) {
     deleteBtn.addEventListener('click', deleteTeam);
   }
+}
+
+// show large pokemon display when clicking a team member
+function showTeamPokemon(pokemon) {
+  const selectedPokemon = document.getElementById('selected-pokemon');
+  if (!selectedPokemon) return;
+
+  selectedPokemon.innerHTML = `
+    <div id="large-pokemon-display">
+      <img src="${pokemon.official_image_url}" alt="${pokemon.name}" class="large-img">
+      <div class="selected-pokemon-text">
+        <p>#${pokemon.pokedex_id}</p>
+        <h2>${pokemon.name}</h2>
+        <div class="type ${pokemon.types[0]}">${pokemon.types[0]}</div>
+        ${pokemon.types[1] ? `<div class="type ${pokemon.types[1]}">${pokemon.types[1]}</div>` : ''}
+      </div>
+      <div class="select-buttons">
+         <button class="switch-image">Switch to Classic</button>
+         <button class="delete-from-team" data-id="${pokemon.pokedex_id}">Remove</button>
+      </div>
+    </div>
+  `;
+
+   // switch to classic
+   const switchBtn = document.querySelector('.switch-image');
+   const pokemonImage = document.querySelector('.large-img');
+
+   if (switchBtn && pokemonImage) {
+    switchBtn.addEventListener('click', () => {
+      if (pokemonImage.src.includes('official')) {
+        switchBtn.textContent = 'Switch to modern';
+        pokemonImage.src = pokemon.gameboy_image_url;
+      } else {
+        switchBtn.textContent = 'Switch to classic';
+        pokemonImage.src = pokemon.official_image_url;
+      }
+    });
+   }
 }
 
 // delete from team button
@@ -101,6 +154,13 @@ document.addEventListener('click', async (e) => {
     const id = parseInt(e.target.dataset.id);
     await deletePokemonFromTeam(id);
   }
+});
+
+// close pokemon
+document.addEventListener('click', (e) => {
+   if (e.target.classList.contains('close-selected')) {
+      document.getElementById('selected-pokemon').innerHTML = '';
+   }
 });
 
 // load team on page load
