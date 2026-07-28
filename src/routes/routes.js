@@ -19,12 +19,28 @@ router.post('/api/teams', async (req, res) => {
    const { team } = req.body;
    const pokemonIds = team.map(p => p.pokedex_id);
 
+   // Delete old team
+   await pool.query('DELETE FROM teams');
+
+   // Insert new team
    const result = await pool.query(
       'INSERT INTO teams (pokemon_ids, created_at) VALUES ($1, NOW()) RETURNING id',
       [pokemonIds]
    );
 
    res.json({ success: true, teamId: result.rows[0].id });
+});
+
+// delete team
+
+router.delete('/api/teams', async (req, res) => {
+   try {
+   	await pool.query('DELETE FROM teams');
+	res.json({ success: true});
+   } catch (error) {
+   	console.error('Error deleting team:', error);
+	res.status(500).json({ error: 'Failed to delete team' });
+   }
 });
 
 // fetch team from DB
@@ -46,6 +62,7 @@ router.get('/api/teams/latest', async (req, res) => {
    res.json({ team: pokemonResult.rows }); 
 });
 
+// search route
 router.get('/search', async(req, res) => {
    const query = req.query.q;
    const result = await pool.query('SELECT * FROM pokemon ORDER BY pokedex_id');
@@ -64,3 +81,4 @@ router.get('/search', async(req, res) => {
 });
 
 module.exports = router;
+

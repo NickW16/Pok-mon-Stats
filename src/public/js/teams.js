@@ -20,6 +20,10 @@ async function deleteTeam() {
   try {
     await fetch('/api/teams', { method: 'DELETE' });
     renderTeam([]);
+
+    const selectedPokemon = document.getElementById('selected-pokemon');
+    if (selectedPokemon) selectedPokemon.textContent = '';
+
     alert('Team deleted!');
   } catch (error) {
     console.error('Error deleting team:', error);
@@ -33,16 +37,20 @@ async function deletePokemonFromTeam(id) {
    const data = await response.json();
    const team = data.team || [];
    const pokemon = team.find(p => p.pokedex_id === id);
+   const largePokemonImg = document.getElementById('large-pokemon-display');
 
    if (!pokemon) return;
 
-   if (!confirm(`Remove ${pokemon.name} from your team?`)) return;
+   if (!confirm(`Remove ${pokemon.name} from your team?`)) {
+   	return
+   };
 
    try {
       const index = team.findIndex(p => p.pokedex_id === id);
       if (index === -1) return;
 
       team.splice(index, 1);
+      largePokemonImg.textContent = ''; //clear pokemon img
 
       await fetch('/api/teams', {
          method: 'POST',
@@ -104,10 +112,12 @@ function renderTeam(team) {
      });
    });
 
+ // delete entire team
   const deleteBtn = document.getElementById('delete-team');
   if (deleteBtn) {
     deleteBtn.addEventListener('click', deleteTeam);
   }
+ 
 }
 
 // show large pokemon display when clicking a team member
