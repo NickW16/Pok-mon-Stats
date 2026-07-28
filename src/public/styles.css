@@ -47,10 +47,29 @@ body {
 
 .title {
    margin: 10px;
+	color: var(--modern-blue);
 }
 
-.header-links {
+.header-links, a {
+	color: var(--classic-blue);
+	font-weight: bolder;
    display: flex;
+	outline: none;
+	text-decoration: none;
+	transition: 0.2 ease;
+}
+
+.header-links:hover {
+	transition: 0.2 ease;
+	color: var(--modern-near-black);
+}
+
+a:hover {
+	transform: translateY(-10%);
+}
+
+a:active {
+	color: var(--classic-red);
 }
 
 .navigation-link {
@@ -76,8 +95,36 @@ body {
 
 #search-and-results {
    display: flex;
+	justify-content: center;
+	align-items: center;
    margin: 6px;
    flex-direction: column;
+}
+
+#search {
+	font-size: 18px;
+	border: 2px solid var(--classic-blue);
+	border-radius: 50px;
+	transition: all 0.3s ease;
+	outline: none;
+	max-width: 200px;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+#search:placeholder {
+	color: #aaa;
+	font-weight: 400;
+}
+
+#search:focus {
+	border-color: var(--modern-blue);
+   box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.15);
+	transform: translateY(-1px);
+}
+
+#search:hover {
+  border-color: #bbb;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 /* pokemon list styling */
