@@ -31,6 +31,7 @@ body {
    display: flex;
    margin: 0;
    justify-content: center;
+	height: 100vh;
    align-items:center;
    background-color: var(--classic-gray);
 }
@@ -41,12 +42,14 @@ body {
    flex-direction: column;
    padding: 20px;
    width: 80%;
+	justify-content: center;
    align-items: center;
    border-radius: 32px;
 }
 
 .title {
    margin: 10px;
+	font-size: 40px;
 	color: var(--modern-blue);
 }
 
@@ -56,15 +59,16 @@ body {
    display: flex;
 	outline: none;
 	text-decoration: none;
-	transition: 0.2 ease;
+	transition: 0.2s ease;
 }
 
 .header-links:hover {
-	transition: 0.2 ease;
+	transition: 0.2s ease;
 	color: var(--modern-near-black);
 }
 
 a:hover {
+	transition: 0.2s ease;
 	transform: translateY(-10%);
 }
 
@@ -148,8 +152,14 @@ a:active {
    align-items: center;
    gap: 5px;
    border-radius: 20px;
+	cursor: pointer;
    width: 300px;
    background-color: var(--modern-background-gray);
+}
+
+.pokemon-card-clickable:hover {
+	transition: 0.3s ease;
+	transform: scale(1.075);
 }
 
 .pokemon-card-clickable:active, .pokemon-team:active {
@@ -209,9 +219,12 @@ a:active {
 }
 
 .select-buttons button {
-   background-color: var(--modern-dark-gray);
+   background-color: var(--classic-blue);
    color: white;
+	font-weight: bolder;
    border-radius: 30px;
+	padding: 4px;
+	cursor: pointer;
    width: 140px;
    border: none;
    transition: ease 0.2s;
@@ -223,6 +236,31 @@ a:active {
 
 .pokeimg {
    height: 50px;
+}
+
+.select-and-credits {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#credits {
+	display: flex;
+	height: 120px;
+	gap: 10px;
+	justify-content: center;
+	align-items: center;
+}
+
+#github-image {
+	height: 30px;
+	filter: invert(1);
+	transition: 0.5s ease;
+}
+
+#github-image:hover {
+	filter: invert(0.5);
 }
 
 /* team styling */
@@ -263,17 +301,19 @@ a:active {
    text-decoration: none;
 }
 
-.delete-from-team {
+.delete-from-team, #delete-team {
    border: none;
    border-radius: 30px;
-   padding: 2px 5px 2px 5px;
+   padding: 2px 10px 2px 10px;
+	font-weight: bolder;
    background-color: var(--modern-navy);
    color: var(--classic-white);
    transition: 0.2s ease;
 }
 
-.delete-from-team:hover {
+.delete-from-team:hover, #delete-team:hover {
    background-color: var(--modern-red);
+	transform: translateY(-10%);
    color: var(--classic-white);
 }
 
