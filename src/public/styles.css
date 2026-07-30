@@ -159,7 +159,7 @@ a:active {
 	transition: transform 0.3s ease, box-shadow 0.2s ease;
 }
 
-.pokemon-card-clickable:hover {
+.pokemon-card-clickable:hover, .pokemon-team:hover {
 	transform: scale(1.075);
 }
 
@@ -342,13 +342,14 @@ a:active {
 		transform: scale(0.90);
 	}
 
-	.pokemon-list {
+	.pokemon-list, #my-team {
 		height: 225px;
 		width: 100%;
 		max-width: 320px;
 	}
 
    #team-and-select {
-    flex-direction: column;
+		max-height: 850px;
+      flex-direction: column;
   }
 }
